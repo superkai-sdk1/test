@@ -236,43 +236,12 @@
             border: 2px solid;
             border-image: linear-gradient(45deg, rgba(175, 82, 222, 1), rgba(175, 82, 222, 0.5)) 1;
         }
-
-        .game-phase {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 5px 10px;
-            background-color: black;
-            color: white;
-            font-size: 18px;
-            border-radius: 10px;
-            font-family: 'Manrope', sans-serif;
-            border: 2px solid;
-            border-image: linear-gradient(45deg, rgba(175, 82, 222, 1), rgba(175, 82, 222, 0.5)) 1;
-            animation: phase-border-animation 3s linear infinite;
-        }
-
-        @keyframes phase-border-animation {
-            0% {
-                border-color: rgba(175, 82, 222, 1);
-            }
-
-            50% {
-                border-color: rgba(175, 82, 222, 0.5);
-            }
-
-            100% {
-                border-color: rgba(175, 82, 222, 1);
-            }
-        }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 
 <body class="visible">
     <div class="game-info" id="game-info">ИГРА x / y</div>
-    <div class="game-phase" id="game-phase"></div>
     <footer class="show-roles">
         <div class="player" id="player_1">
             <div class="photo"></div>
@@ -361,7 +330,6 @@
         const pl = new BroadcastChannel('player_list');
         const cl = new BroadcastChannel('class_list');
         const gi = new BroadcastChannel('game_info');
-        const gp = new BroadcastChannel('game_phase');
 
         $(document).ready(function () {
             var element = document.getElementsByTagName("body")[0];
@@ -400,11 +368,6 @@
         gi.onmessage = (event) => {
             document.getElementById('game-info').innerText = event.data;
         }
-
-        gp.onmessage = (event) => {
-            console.log(`Received game phase: ${event.data}`); // Логирование полученного сообщения
-            document.getElementById('game-phase').innerText = event.data;
-        };
     </script>
 </body>
 
