@@ -374,20 +374,6 @@
                     <input type="text" id="game-number-input" placeholder="ИГРА x / y">
                 </td>
             </tr>
-            <tr>
-                <td>Фаза игры</td>
-                <td>
-                    <select id="game-phase-select">
-                        <option value="Раздача">Раздача</option>
-                        <option value="Договорка Мафии">Договорка Мафии</option>
-                        <option value="Свободная посадка">Свободная посадка</option>
-                        <option value="День">День</option>
-                        <option value="Ночь">Ночь</option>
-                        <option value="Дон ищет Шерифа">Дон ищет Шерифа</option>
-                        <option value="Шериф ищет Мафию">Шериф ищет Мафию</option>
-                    </select>
-                </td>
-            </tr>
         </table>
     </header>
     <div class="main">
@@ -420,7 +406,6 @@
         const pl = new BroadcastChannel('player_list');
         const cl = new BroadcastChannel('class_list');
         const gi = new BroadcastChannel('game_info');
-        const gp = new BroadcastChannel('game_phase'); // Добавлен канал для фазы игры
 
         function createPlayerRows(num) {
             for (let i = 1; i <= num; i++) {
@@ -448,13 +433,6 @@
             $('.main').hide();
             $('#main-buttons').hide();
             getPlayerList(player_list);
-
-            // Обновление фазы игры при изменении селекта
-            $('#game-phase-select').on('change', function () {
-                const gamePhase = $(this).val();
-                console.log(`Sending game phase: ${gamePhase}`); // Логирование отправляемого сообщения
-                gp.postMessage(gamePhase);
-            });
         });
 
         function loadFileAsText() {
